@@ -36,6 +36,8 @@ export default {
       "process.env.NODE_ENV": JSON.stringify(
         process.env.NODE_ENV || "development"
       ),
+      delimiters: ["", ""],
+      "use client": "",
     }),
     !isProduction &&
       serve({
@@ -49,12 +51,11 @@ export default {
         watch: "dist",
       }),
     isProduction && terser(), // Minify code for production
-    isProduction &&
-      copy({
-        targets: [
-          { src: "public/**/*", dest: "dist" },
-          { src: "public/index.html", dest: "dist" },
-        ],
-      }),
+    copy({
+      targets: [
+        { src: "public/", dest: "dist" },
+        { src: "public/index.html", dest: "dist" },
+      ],
+    }),
   ].filter(Boolean),
 };

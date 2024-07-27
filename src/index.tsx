@@ -6,6 +6,10 @@ import Root from "./root";
 import ErrorPage from "./layout/ErrorPage";
 import Home from "./routes/home";
 import Establishment from "./routes/establishment";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "./styles/theme";
+import { GlobalStyles } from "./styles/global";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +31,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <GlobalStyles />
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );
