@@ -1,0 +1,8 @@
+node_modules
+dist
+public
+.gitignore
+pnpm-lock.json
+README.md
+package.json
+tsconfig.json
