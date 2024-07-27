@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components"
 
 export const GlobalStyles = createGlobalStyle`
     @font-face {
@@ -46,4 +46,4 @@ export const GlobalStyles = createGlobalStyle`
     body {
         font-family: 'SF Pro Display', Arial, sans-serif;
     }
-`;
+`

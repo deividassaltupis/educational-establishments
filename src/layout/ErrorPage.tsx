@@ -1,4 +1,4 @@
-import { useRouteError } from "react-router-dom";
+import { useRouteError } from "react-router-dom"
 
 const isErrorWithMessage = (
   error: any
@@ -8,12 +8,12 @@ const isErrorWithMessage = (
     typeof error === "object" &&
     "message" in error &&
     typeof (error as any).message === "string"
-  );
-};
+  )
+}
 
 const ErrorPage = () => {
-  const error = useRouteError();
-  console.error(error);
+  const error = useRouteError()
+  console.error(error)
 
   return (
     <div id="error-page">
@@ -27,7 +27,7 @@ const ErrorPage = () => {
         </i>
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default ErrorPage;
+export default ErrorPage

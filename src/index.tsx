@@ -1,15 +1,15 @@
-import React from "react";
-import * as ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React from "react"
+import * as ReactDOM from "react-dom/client"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
-import Root from "./root";
-import ErrorPage from "./layout/ErrorPage";
-import Home from "./routes/home";
-import Establishment from "./routes/establishment";
-import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider } from "@mui/material";
-import { theme } from "./styles/theme";
-import { GlobalStyles } from "./styles/global";
+import Root from "./root"
+import ErrorPage from "./layout/ErrorPage"
+import Home from "./routes/home"
+import Establishment from "./routes/establishment"
+import CssBaseline from "@mui/material/CssBaseline"
+import { ThemeProvider } from "@mui/material"
+import { theme } from "./styles/theme"
+import { GlobalStyles } from "./styles/global"
 
 const router = createBrowserRouter([
   {
@@ -19,15 +19,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Home />
       },
       {
         path: "establishment/:id",
-        element: <Establishment />,
-      },
-    ],
-  },
-]);
+        element: <Establishment />
+      }
+    ]
+  }
+])
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -36,5 +36,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <GlobalStyles />
       <RouterProvider router={router} />
     </ThemeProvider>
-  </React.StrictMode>,
-);
+  </React.StrictMode>
+)

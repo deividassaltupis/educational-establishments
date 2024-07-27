@@ -1,6 +1,6 @@
-import { Box, Container } from "@mui/material";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Box, Container } from "@mui/material"
+import React from "react"
+import { Link } from "react-router-dom"
 
 const Home = () => {
   return (
@@ -9,7 +9,7 @@ const Home = () => {
         <Link to="establishment/2">esablishment 2</Link>
       </Container>
     </Box>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
