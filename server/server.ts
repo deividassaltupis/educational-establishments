@@ -1,18 +1,14 @@
 import express from "express"
 import cors from "cors"
+import NodeCache from "node-cache"
+import { containsOnlyNumbers, paginate, PAGINATION_DEFAULTS } from "./utils"
+import { EducationalEstablishmentsResponse } from "./types"
+import { CACHE_KEYS, GOVERNMENT_API_ENDPOINT_URL } from "./constants/api"
 
 const app = express()
 app.use(cors())
 
-const PORT = 5000
-
-const DEFAULT_SCHEME = "https://"
-const GOVERNMENT_API_HOST = "get.data.gov.lt"
-
-const PATHS = {
-  EDUCATIONAL_ESTABLISHMENTS:
-    "/datasets/gov/lsd/svietimo_istaigos/SvietimoIstaiga"
-}
+const cache = new NodeCache({ stdTTL: 3600 })
 
 app.get("/api", (req, res) => {
   res.send("API is listening")
@@ -20,11 +16,29 @@ app.get("/api", (req, res) => {
 
 app.get("/api/educational-establishments", async (req, res) => {
   try {
+    const cachedData = cache.get<EducationalEstablishmentsResponse>(
+      CACHE_KEYS.EDUCATIONAL_ESTABLISHMENTS
+    )
+
+    let page = PAGINATION_DEFAULTS.PAGE
+    let size = PAGINATION_DEFAULTS.SIZE
+
+    if (req.query.page && containsOnlyNumbers(req.query.page as string)) {
+      page = parseInt(req.query.page as string)
+    }
+
+    if (req.query.size && containsOnlyNumbers(req.query.size as string)) {
+      size = parseInt(req.query.size as string)
+    }
+
+    if (cachedData) {
+      return res.json(paginate<unknown>(cachedData._data, page, size))
+    }
+
     const response = await fetch(
-      `${DEFAULT_SCHEME}${GOVERNMENT_API_HOST}${PATHS.EDUCATIONAL_ESTABLISHMENTS}`,
+      `${GOVERNMENT_API_ENDPOINT_URL.EDUCATIONAL_ESTABLISHMENTS}`,
       {
         headers: {
-          "Content-Type": "application/json",
           Accept: "application/json"
         }
       }
@@ -34,14 +48,18 @@ app.get("/api/educational-establishments", async (req, res) => {
       throw new Error(`HTTP error! status: ${res.status}`)
     }
 
-    const data = await response.json()
+    const data = (await response.json()) as EducationalEstablishmentsResponse
 
-    return res.json(data)
+    cache.set(CACHE_KEYS.EDUCATIONAL_ESTABLISHMENTS, data)
+
+    return res.json(paginate<unknown>(data._data, page, size))
   } catch (error) {
     console.error(error)
     res.status(500).send("Internal Server Error")
   }
 })
+
+const PORT = 5000
 
 app.listen(PORT, () => {
   console.log(`Server is running on port :${PORT}`)
