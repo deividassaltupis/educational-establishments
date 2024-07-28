@@ -1,17 +1,12 @@
 import { Box, Container } from "@mui/material"
 import React from "react"
 import { Link } from "react-router-dom"
+import { PROXY_SERVER_ENDPOINT_URL } from "src/constants/proxy-sever"
 import useFetch from "src/hooks/useFetch"
 
 const Home = () => {
   const { data } = useFetch(
-    "https://get.data.gov.lt/datasets/gov/lsd/svietimo_istaigos/SvietimoIstaiga",
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      }
-    }
+    PROXY_SERVER_ENDPOINT_URL.EDUCATIONAL_ESTABLISHMENTS
   )
 
   console.log(data)

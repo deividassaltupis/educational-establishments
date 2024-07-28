@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "../dist/server",
+    "rootDir": "./",
+    "baseUrl": "./",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "isolatedModules": true,
+    "allowJs": true
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}
