@@ -7,7 +7,7 @@ type UsePaginatedFetch = {
   size: number
 }
 
-type PaginatedResponse<T> = {
+export type PaginatedResponse<T> = {
   data: T[]
   page: number
   size: number
@@ -19,14 +19,14 @@ const usePaginatedFetch = <T>({
   page = 1,
   size = 40
 }: UsePaginatedFetch) => {
-  const { data, error, loading, refetch } = useFetch<PaginatedResponse<T>>(
+  const { data, error, isLoading, refetch } = useFetch<PaginatedResponse<T>>(
     formatUrlWithParams(url, { page, size })
   )
 
   return {
-    data,
+    paginatedResponse: data,
     error,
-    loading,
+    isLoading,
     refetch
   }
 }

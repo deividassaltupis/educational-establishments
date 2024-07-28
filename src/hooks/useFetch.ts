@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react"
 type FetchState<T> = {
   data: T | null
   error: Error | null
-  loading: boolean
+  isLoading: boolean
 }
 
 type UseFetchResult<T> = FetchState<T> & {
@@ -14,7 +14,7 @@ const useFetch = <T>(url: string, options?: RequestInit): UseFetchResult<T> => {
   const [fetchState, setFetchState] = useState<FetchState<T>>({
     data: null,
     error: null,
-    loading: true
+    isLoading: true
   })
 
   const fetchData = useCallback(async () => {
@@ -26,9 +26,9 @@ const useFetch = <T>(url: string, options?: RequestInit): UseFetchResult<T> => {
       }
 
       const data = (await response.json()) as T
-      setFetchState({ data, error: null, loading: false })
+      setFetchState({ data, error: null, isLoading: false })
     } catch (error) {
-      setFetchState({ data: null, error: error as Error, loading: false })
+      setFetchState({ data: null, error: error as Error, isLoading: false })
     }
   }, [url])
 
