@@ -4,7 +4,7 @@ import React from "react"
 const Header = () => {
   return (
     <Box component="header">
-      <Container>Header</Container>
+      <Container maxWidth={false}>Header</Container>
     </Box>
   )
 }

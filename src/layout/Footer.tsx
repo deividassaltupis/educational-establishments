@@ -4,7 +4,7 @@ import React from "react"
 const Footer = () => {
   return (
     <Box component="footer">
-      <Container>Footer</Container>
+      <Container maxWidth={false}>Footer</Container>
     </Box>
   )
 }

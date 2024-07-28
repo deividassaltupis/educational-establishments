@@ -107,6 +107,7 @@ type EstablishmentsTableProps = {
       size: number
     }>
   >
+  onRowSelect: (selectedId: string) => void
 }
 
 const EstablishmentsTable: FC<EstablishmentsTableProps> = ({
@@ -114,7 +115,8 @@ const EstablishmentsTable: FC<EstablishmentsTableProps> = ({
   isLoading,
   error,
   paginationOptions,
-  setPaginationOptions
+  setPaginationOptions,
+  onRowSelect
 }) => {
   const zeroBasedPaginationOptions = {
     page: paginationOptions.page - 1,
@@ -142,7 +144,9 @@ const EstablishmentsTable: FC<EstablishmentsTableProps> = ({
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ minHeight: "60vh", position: "relative" }}>
+      <TableContainer
+        sx={{ minHeight: "60vh", maxHeight: "80vh", position: "relative" }}
+      >
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -166,7 +170,14 @@ const EstablishmentsTable: FC<EstablishmentsTableProps> = ({
               paginatedData?.data &&
               paginatedData?.data.map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={row._id}
+                    //onSelect={() => row._id && onRowSelect(row._id)}
+                    onClick={() => row._id && onRowSelect(row._id)}
+                  >
                     {columns.map((column) => {
                       const value = row[column.id]
                       return (
@@ -174,7 +185,8 @@ const EstablishmentsTable: FC<EstablishmentsTableProps> = ({
                           key={column.id}
                           align={column.align}
                           sx={{
-                            fontSize: "12px"
+                            fontSize: "12px",
+                            cursor: "pointer"
                           }}
                         >
                           {column.format && typeof value === "number"
