@@ -2,3 +2,5 @@
 dist
 .vscode
 notes.txt
+.env
+.env.local
