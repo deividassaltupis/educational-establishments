@@ -8,6 +8,7 @@ import {
 } from "src/constants/schemas/establishment-form-schema"
 import { EducationalEstablishment } from "src/types/entities/educational-establishment"
 import ControlledTextField from "./ui/controlled-text-field"
+import { useLocalStorage } from "src/hooks/useLocalStorage"
 
 type EstablishmentFormProps = {
   initialData?: EducationalEstablishment | null
@@ -22,8 +23,14 @@ const EstablishmentForm: FC<EstablishmentFormProps> = ({ initialData }) => {
   } = useForm<EducationalEstablishmentFormValues>({
     resolver: yupResolver(educationalEstablishmentSchema)
   })
+  const { storedValue: storedEstablishments, setValue } = useLocalStorage<
+    EducationalEstablishment[]
+  >("establishments", [])
+
 
   const onSubmit = (data: EducationalEstablishmentFormValues) => {
+    const id = initialData?._id
+
     const ins_ireg_smir_data = data.ins_ireg_smir_data
       ? new Date(data.ins_ireg_smir_data)
       : null
@@ -40,9 +47,26 @@ const EstablishmentForm: FC<EstablishmentFormProps> = ({ initialData }) => {
     const deregDay = ins_isreg_smir_data?.getDate()
 
     const payload = {
+      _type: initialData?._type,
+      _id: initialData?._id,
+      _revision: initialData?._revision,
+      ins_id: initialData?.ins_id,
       ...data,
       ins_ireg_smir_data: `${regYear}-${regMonth}-${regDay}`,
       ins_isreg_smir_data: `${deregYear}-${deregMonth}-${deregDay}`
+    }
+
+    if (
+      !storedEstablishments.some((establishment) => establishment._id === id)
+    ) {
+      setValue([...storedEstablishments, payload])
+    } else {
+      setValue([
+        ...storedEstablishments.filter(
+          (establishment) => establishment._id !== id
+        ),
+        payload
+      ])
     }
   }
 

@@ -1,7 +1,7 @@
 export type EducationalEstablishment = {
-  _type?: string
-  _id?: string
-  _revision?: string
+  readonly _type?: string
+  readonly _id?: string
+  readonly _revision?: string
   ins_id?: string
   ins_kodas?: number
   ins_pavad_lt?: string

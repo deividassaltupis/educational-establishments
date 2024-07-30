@@ -14,6 +14,7 @@ import {
 import { PaginatedResponse } from "src/hooks/usePaginatedFetch"
 import { EducationalEstablishment } from "src/types/entities/educational-establishment"
 import styled, { keyframes } from "styled-components"
+import { useLocalStorage } from "src/hooks/useLocalStorage"
 
 interface Column {
   id: keyof EducationalEstablishment
@@ -118,12 +119,14 @@ const EstablishmentsTable: FC<EstablishmentsTableProps> = ({
   setPaginationOptions,
   onRowSelect
 }) => {
+  const { storedValue: storedEstablishments, setValue } = useLocalStorage<
+    EducationalEstablishment[]
+  >("establishments", [])
+
   const zeroBasedPaginationOptions = {
     page: paginationOptions.page - 1,
     size: paginationOptions.size
   }
-
-  console.log("zeroBasedPaginationOptions", zeroBasedPaginationOptions)
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPaginationOptions({
