@@ -16,32 +16,9 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import EstablishmentForm from "src/components/common/establishment-form"
 import useEducationalEstablishments from "src/hooks/custom/useEducationalEstablishments"
+import EstablishmentsMap from "src/components/routes/home/establishments-map"
 
 const drawerWidth = 500
-
-const TableWrapper = styled("div", {
-  shouldForwardProp: (prop) => prop !== "open"
-})<{
-  open?: boolean
-}>(({ theme, open }) => ({
-  flexGrow: 1,
-  padding: theme.spacing(3),
-  transition: theme.transitions.create("margin", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen
-  }),
-  marginRight: -drawerWidth,
-  ...(open && {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    }),
-    marginRight: 0
-  }),
-  position: "relative",
-  maxWidth: "100%",
-  overflow: "hidden"
-}))
 
 const Home = () => {
   const theme = useTheme()
@@ -90,7 +67,7 @@ const Home = () => {
         <Link to="establishment/2">esablishment 2</Link>
 
         <Box display="flex">
-          <TableWrapper open={!!selectedEstablishmentId}>
+          <MainContentWrapper open={!!selectedEstablishmentId}>
             <EstablishmentsTable
               paginatedData={paginatedResponse}
               isLoading={isLoading}
@@ -105,7 +82,10 @@ const Home = () => {
                 setSelectedEstablishmentId(selectedId)
               }}
             />
-          </TableWrapper>
+            <Box sx={{ mt: 4 }}>
+              <EstablishmentsMap data={paginatedResponse.data} />
+            </Box>
+          </MainContentWrapper>
           <Drawer
             sx={{
               width: drawerWidth,
@@ -148,4 +128,28 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 1),
   ...theme.mixins.toolbar,
   justifyContent: "flex-start"
+}))
+
+const MainContentWrapper = styled("div", {
+  shouldForwardProp: (prop) => prop !== "open"
+})<{
+  open?: boolean
+}>(({ theme, open }) => ({
+  flexGrow: 1,
+  padding: theme.spacing(3),
+  transition: theme.transitions.create("margin", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen
+  }),
+  marginRight: -drawerWidth,
+  ...(open && {
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen
+    }),
+    marginRight: 0
+  }),
+  position: "relative",
+  maxWidth: "100%",
+  overflow: "hidden"
 }))

@@ -1,6 +1,7 @@
 import React from "react"
 import * as ReactDOM from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { LoadScript } from "@react-google-maps/api"
 
 import Root from "./root"
 import ErrorPage from "./layout/ErrorPage"
@@ -29,12 +30,20 @@ const router = createBrowserRouter([
   }
 ])
 
+const googleLibraries = ["places"] as any[]
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <GlobalStyles />
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <LoadScript
+      id="script-loader"
+      googleMapsApiKey={process.env.GOOGLE_MAPS_API_KEY || ""}
+      libraries={googleLibraries}
+    >
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <GlobalStyles />
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </LoadScript>
   </React.StrictMode>
 )

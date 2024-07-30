@@ -178,7 +178,6 @@ const EstablishmentsTable: FC<EstablishmentsTableProps> = ({
                     role="checkbox"
                     tabIndex={-1}
                     key={row._id}
-                    //onSelect={() => row._id && onRowSelect(row._id)}
                     onClick={() => row._id && onRowSelect(row._id)}
                   >
                     {columns.map((column) => {
