@@ -18,6 +18,7 @@ import { EducationalEstablishment } from "src/types/entities/educational-establi
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
+import EstablishmentForm from "src/components/common/establishment-form"
 
 const drawerWidth = 500
 
@@ -74,15 +75,20 @@ const Home = () => {
   useEffect(() => {
     setSearchParams({
       page: paginationOptions.page.toString(),
-      size: paginationOptions.size.toString()
+      size: paginationOptions.size.toString(),
+      selectedEstablishmentId: selectedEstablishmentId || ""
     })
   }, [selectedEstablishmentId, paginationOptions, setSearchParams])
-
-  console.log("selectedEstablishmentId", selectedEstablishmentId)
 
   const handleDrawerClose = () => {
     setSelectedEstablishmentId(null)
   }
+
+  const selectedEstablishment = selectedEstablishmentId
+    ? paginatedResponse?.data.find(
+        (establishment) => establishment._id === selectedEstablishmentId
+      )
+    : null
 
   return (
     <Box component="main">
@@ -90,7 +96,7 @@ const Home = () => {
         <Link to="establishment/2">esablishment 2</Link>
 
         <Box display="flex">
-          <TableWrapper open={selectedEstablishmentId !== null}>
+          <TableWrapper open={!!selectedEstablishmentId}>
             <EstablishmentsTable
               paginatedData={paginatedResponse}
               isLoading={isLoading}
@@ -116,7 +122,7 @@ const Home = () => {
             }}
             variant="persistent"
             anchor="right"
-            open={selectedEstablishmentId !== null}
+            open={!!selectedEstablishmentId}
           >
             <DrawerHeader>
               <IconButton onClick={handleDrawerClose}>
@@ -129,6 +135,10 @@ const Home = () => {
             </DrawerHeader>
 
             <Divider />
+
+            <Box sx={{ p: 2 }}>
+              <EstablishmentForm initialData={selectedEstablishment} />
+            </Box>
           </Drawer>
         </Box>
       </Container>
