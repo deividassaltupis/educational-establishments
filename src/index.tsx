@@ -2,6 +2,7 @@ import React from "react"
 import * as ReactDOM from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { LoadScript } from "@react-google-maps/api"
+import { ToastContainer } from "react-toastify"
 
 import Root from "./root"
 import ErrorPage from "./layout/ErrorPage"
@@ -11,6 +12,8 @@ import CssBaseline from "@mui/material/CssBaseline"
 import { ThemeProvider } from "@mui/material"
 import { theme } from "./styles/theme"
 import { GlobalStyles } from "./styles/global"
+
+import "react-toastify/dist/ReactToastify.css"
 
 const router = createBrowserRouter([
   {
@@ -40,6 +43,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       libraries={googleLibraries}
     >
       <ThemeProvider theme={theme}>
+        <ToastContainer limit={1} autoClose={5000} position="bottom-right" />
         <CssBaseline />
         <GlobalStyles />
         <RouterProvider router={router} />

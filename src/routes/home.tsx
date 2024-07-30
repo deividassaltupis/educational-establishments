@@ -18,6 +18,7 @@ import EstablishmentForm from "src/components/common/establishment-form"
 import useEducationalEstablishments from "src/hooks/custom/useEducationalEstablishments"
 import EstablishmentsMap from "src/components/routes/home/establishments-map"
 import { useDebounceByValue } from "src/hooks/useDebounceByValue"
+import { toast } from "react-toastify"
 
 const drawerWidth = 500
 
@@ -62,6 +63,13 @@ const Home = () => {
         (establishment) => establishment._id === selectedEstablishmentId
       )
     : null
+
+  useEffect(() => {
+    if (error) {
+      const message = error.message || "An error occurred"
+      toast.error(message)
+    }
+  }, [error])
 
   return (
     <Box component="main">

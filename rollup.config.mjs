@@ -9,6 +9,7 @@ import terser from "@rollup/plugin-terser"
 import copy from "rollup-plugin-copy"
 import json from "@rollup/plugin-json"
 import dotenv from "dotenv"
+import postcss from "rollup-plugin-postcss"
 
 dotenv.config()
 const env = process.env.NODE_ENV || "development"
@@ -53,6 +54,9 @@ export default {
       ...envVariables,
       delimiters: ["", ""],
       "use client": ""
+    }),
+    postcss({
+      extensions: [".css"]
     }),
     !isProduction &&
       serve({
