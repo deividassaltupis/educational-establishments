@@ -39,11 +39,15 @@ const EstablishmentForm: FC<EstablishmentFormProps> = ({ initialData }) => {
       : null
 
     const regYear = ins_ireg_smir_data?.getFullYear()
-    const regMonth = ins_ireg_smir_data?.getMonth()
+    const regMonth = ins_ireg_smir_data
+      ? (ins_ireg_smir_data.getMonth() + 1).toString().padStart(2, "0")
+      : undefined
     const regDay = ins_ireg_smir_data?.getDate()
 
     const deregYear = ins_isreg_smir_data?.getFullYear()
-    const deregMonth = ins_isreg_smir_data?.getMonth()
+    const deregMonth = ins_isreg_smir_data
+      ? (ins_isreg_smir_data.getMonth() + 1).toString().padStart(2, "0")
+      : undefined
     const deregDay = ins_isreg_smir_data?.getDate()
 
     const payload = {
