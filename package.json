@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development rollup -c -w",
     "build": "cross-env NODE_ENV=production rollup -c",
+    "start": "http-server dist -p 3001",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css}\"",
     "proxy-server-build": "tsc --project ./server/tsconfig.server.json",
@@ -22,6 +23,7 @@
     "@react-google-maps/api": "^2.19.3",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "http-server": "^14.1.1",
     "node-cache": "^5.1.2",
     "node-fetch": "^3.3.2",
     "proj4": "^2.11.0",
