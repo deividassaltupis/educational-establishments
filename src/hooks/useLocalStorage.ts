@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export const useLocalStorage = <T>(key: string, initialValue: T) => {
   const getStoredValue = () => {
@@ -25,6 +25,7 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
 
       if (typeof window !== "undefined") {
         window.localStorage.setItem(key, JSON.stringify(valueToStore))
+        window.dispatchEvent(new Event("local-storage-change"))
       }
     } catch (error) {
       console.error(error)
@@ -37,11 +38,34 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
 
       if (typeof window !== "undefined") {
         window.localStorage.removeItem(key)
+        window.dispatchEvent(new Event("local-storage-change"))
       }
     } catch (error) {
       console.error(error)
     }
   }
+
+  useEffect(() => {
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === key) {
+        setStoredValue(
+          event.newValue ? JSON.parse(event.newValue) : initialValue
+        )
+      }
+    }
+
+    const handleCustomEvent = () => {
+      setStoredValue(getStoredValue())
+    }
+
+    window.addEventListener("storage", handleStorageChange)
+    window.addEventListener("local-storage-change", handleCustomEvent)
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange)
+      window.removeEventListener("local-storage-change", handleCustomEvent)
+    }
+  }, [key])
 
   return { storedValue, setValue, removeItem } as const
 }
