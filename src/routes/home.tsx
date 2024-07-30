@@ -11,14 +11,11 @@ import { useEffect, useState } from "react"
 
 import { Link, useSearchParams } from "react-router-dom"
 import EstablishmentsTable from "src/components/routes/home/establishments-table"
-import { PROXY_SERVER_ENDPOINT_URL } from "src/constants/proxy-sever"
-import useFetch from "src/hooks/useFetch"
-import usePaginatedFetch from "src/hooks/usePaginatedFetch"
-import { EducationalEstablishment } from "src/types/entities/educational-establishment"
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import EstablishmentForm from "src/components/common/establishment-form"
+import useEducationalEstablishments from "src/hooks/custom/useEducationalEstablishments"
 
 const drawerWidth = 500
 
@@ -65,12 +62,9 @@ const Home = () => {
     initialSelectedEstablishmentId
   )
 
-  const { paginatedResponse, isLoading, error } =
-    usePaginatedFetch<EducationalEstablishment>({
-      url: PROXY_SERVER_ENDPOINT_URL.EDUCATIONAL_ESTABLISHMENTS,
-      page: paginationOptions.page,
-      size: paginationOptions.size
-    })
+  const { paginatedResponse, error, isLoading } = useEducationalEstablishments({
+    paginationOptions
+  })
 
   useEffect(() => {
     setSearchParams({

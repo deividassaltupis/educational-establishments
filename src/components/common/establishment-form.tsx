@@ -23,10 +23,10 @@ const EstablishmentForm: FC<EstablishmentFormProps> = ({ initialData }) => {
   } = useForm<EducationalEstablishmentFormValues>({
     resolver: yupResolver(educationalEstablishmentSchema)
   })
+
   const { storedValue: storedEstablishments, setValue } = useLocalStorage<
     EducationalEstablishment[]
   >("establishments", [])
-
 
   const onSubmit = (data: EducationalEstablishmentFormValues) => {
     const id = initialData?._id

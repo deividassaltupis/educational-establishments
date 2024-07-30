@@ -16,7 +16,7 @@ import { EducationalEstablishment } from "src/types/entities/educational-establi
 import styled, { keyframes } from "styled-components"
 import { useLocalStorage } from "src/hooks/useLocalStorage"
 
-interface Column {
+type Column = {
   id: keyof EducationalEstablishment
   label: string
   minWidth?: number
