@@ -17,6 +17,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import EstablishmentForm from "src/components/common/establishment-form"
 import useEducationalEstablishments from "src/hooks/custom/useEducationalEstablishments"
 import EstablishmentsMap from "src/components/routes/home/establishments-map"
+import { useDebounceByValue } from "src/hooks/useDebounceByValue"
 
 const drawerWidth = 500
 
@@ -42,6 +43,7 @@ const Home = () => {
   const { paginatedResponse, error, isLoading } = useEducationalEstablishments({
     paginationOptions
   })
+  const isLoadingDebounced = useDebounceByValue(isLoading, 1500)
 
   useEffect(() => {
     setSearchParams({
@@ -68,8 +70,7 @@ const Home = () => {
           <MainContentWrapper open={!!selectedEstablishmentId}>
             <EstablishmentsTable
               paginatedData={paginatedResponse}
-              isLoading={isLoading}
-              error={error}
+              isLoading={isLoadingDebounced}
               paginationOptions={paginationOptions}
               setPaginationOptions={setPaginationOptions}
               onRowSelect={(selectedId: string) => {

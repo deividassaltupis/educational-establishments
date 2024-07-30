@@ -5,7 +5,12 @@ const Header = () => {
   return (
     <Box component="header">
       <Container maxWidth={false}>
-        <Typography variant="h5" component="h1" fontWeight="bold">
+        <Typography
+          variant="h5"
+          component="h1"
+          fontWeight="bold"
+          sx={{ py: 2 }}
+        >
           Lithuanian educational establishments
         </Typography>
       </Container>

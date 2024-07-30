@@ -114,7 +114,6 @@ type EstablishmentsTableProps = {
 const EstablishmentsTable: FC<EstablishmentsTableProps> = ({
   paginatedData,
   isLoading,
-  error,
   paginationOptions,
   setPaginationOptions,
   onRowSelect
@@ -148,7 +147,10 @@ const EstablishmentsTable: FC<EstablishmentsTableProps> = ({
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer
-        sx={{ minHeight: "60vh", maxHeight: "80vh", position: "relative" }}
+        sx={{
+          height: "calc(100vh - 116px)",
+          position: "relative"
+        }}
       >
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -241,7 +243,7 @@ const fadeOut = keyframes`
 `
 
 const StyledTableBody = styled(TableBody)<{ isLoading: boolean }>`
-  animation: ${({ isLoading }) => (isLoading ? fadeOut : fadeIn)} 2s ease;
+  animation: ${({ isLoading }) => (isLoading ? "none" : fadeIn)} 2s ease;
 `
 
 const Loader = styled(Box)`
@@ -251,5 +253,4 @@ const Loader = styled(Box)`
   top: 50%;
   left: 50%;
   z-index: 1000;
-  animation: ${fadeOut} 2s ease-out forwards;
 `
