@@ -171,9 +171,13 @@ const EstablishmentsTable: FC<EstablishmentsTableProps> = ({
           </TableHead>
           <StyledTableBody isLoading={!!isLoading}>
             {isLoading ? (
-              <Loader>
-                <CircularProgress color="secondary" />
-              </Loader>
+              <TableRow>
+                <TableCell colSpan={columns.length}>
+                  <Loader>
+                    <CircularProgress color="secondary" />
+                  </Loader>
+                </TableCell>
+              </TableRow>
             ) : (
               paginatedData?.data &&
               paginatedData?.data.map((row) => {
