@@ -1,11 +1,10 @@
-import React from "react"
-import { Link, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
+// TODO: implement separate establishment preview page
 const Establishment = () => {
   const params = useParams<{
     id: string
   }>()
-  console.log("params", params)
 
   return <main>Establishment {params.id}</main>
 }

@@ -9,7 +9,7 @@ import {
 } from "@mui/material"
 import { useEffect, useState } from "react"
 
-import { Link, useSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import EstablishmentsTable from "src/components/routes/home/establishments-table"
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
@@ -64,8 +64,6 @@ const Home = () => {
   return (
     <Box component="main">
       <Container maxWidth={false}>
-        <Link to="establishment/2">esablishment 2</Link>
-
         <Box display="flex">
           <MainContentWrapper open={!!selectedEstablishmentId}>
             <EstablishmentsTable
@@ -136,7 +134,7 @@ const MainContentWrapper = styled("div", {
   open?: boolean
 }>(({ theme, open }) => ({
   flexGrow: 1,
-  padding: theme.spacing(3),
+  py: theme.spacing(3),
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen

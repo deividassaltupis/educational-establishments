@@ -158,6 +158,9 @@ const EstablishmentsTable: FC<EstablishmentsTableProps> = ({
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
+                  sx={{
+                    fontSize: "12px"
+                  }}
                 >
                   {column.label}
                 </TableCell>
